@@ -49,6 +49,10 @@ class ShortcodeCorePlugin extends Plugin
         ]);
 
         $this->grav['shortcode'] = $this->shortcodes = new ShortcodeManager();
+        
+        // reset objects and assets for the page
+        $this->shortcodes->resetObjects();
+        $this->shortcodes->resetAssets();
 
         $this->grav->fireEvent('onShortcodeHandlers');
 
@@ -82,10 +86,6 @@ class ShortcodeCorePlugin extends Plugin
         if (!$this->active) {
             return;
         }
-
-        // reset objects and assets for the page
-        $this->shortcodes->resetObjects();
-        $this->shortcodes->resetAssets();
 
         // process the content for shortcodes
         $page->setRawContent($this->shortcodes->processContent($page, $config));
